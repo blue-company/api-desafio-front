@@ -1,3 +1,4 @@
+import { TypeOrmJuniorRepository } from "@/repositories/typeorm/typeorm-junior-repository";
 import { DeletePostService } from "@/services/delete-post-service";
 import { Request, Response } from "express";
 import { z } from "zod";
@@ -11,12 +12,13 @@ export class DeletePostController {
     const { id } = deleteParamsSchema.parse(req.params);
 
     try {
-      const deletePostService = new DeletePostService();
+      const typeOrmJuniorRepository = new TypeOrmJuniorRepository();
+      const deletePostService = new DeletePostService(typeOrmJuniorRepository);
       await deletePostService.execute({ id });
     } catch (error) {
-      res.status(400).send("Post não existe!");
+      res.status(400).send({ message: "Post não existe!" });
     }
 
-    res.status(200).send("Deletado com sucesso");
+    res.status(200).json({ message: "Deletado com sucesso" });
   }
 }

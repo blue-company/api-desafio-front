@@ -9,14 +9,20 @@ interface CreatePostServiceRequest {
 interface CreatePostServiceResponse {}
 
 export class CreatePostService {
-  // constructor(private juniorRepository: JuniorRepository) {}
+  constructor(private juniorRepository: JuniorRepository) {}
 
   async execute({
     author,
     title,
     description,
   }: CreatePostServiceRequest): Promise<any> {
-    // const response = await this.juniorRepository.create(data);
-    // return response;
+    const response = await this.juniorRepository.create({
+      author,
+      title,
+      description,
+      create_at: new Date(),
+    });
+
+    return response;
   }
 }

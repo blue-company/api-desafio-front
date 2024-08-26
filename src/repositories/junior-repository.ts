@@ -1,7 +1,9 @@
+import { Post } from "@/db/typeorm/entity/Post";
+
 export interface JuniorRepository {
-  create(data: any): Promise<any>;
-  update(id: number, data: any): Promise<any>;
-  findAll(init: number, limit: number): Promise<any>;
-  findOne(id: number): Promise<any>;
-  delete(id: number): Promise<any>;
+  create(data: Post): Promise<Post>;
+  update(id: number, data: Partial<Post>): Promise<Post | null>;
+  findAll(init: number, limit: number): Promise<Post[] | null>;
+  findOne(id: number): Promise<Post | null>;
+  delete(id: number): Promise<Post | null>;
 }

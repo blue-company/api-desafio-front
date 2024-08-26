@@ -1,0 +1,19 @@
+services:
+  # app-node:
+  #   build: .
+  #   ports:
+  #     - 3002:3002
+  #     - 5557:5557
+  #   volumes:
+  #     - .:/home/node/app
+
+  mysql:
+    image: bitnami/mysql:latest
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_USER=root
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=admin
+      - MYSQL_DATABASE=api-desafio-front

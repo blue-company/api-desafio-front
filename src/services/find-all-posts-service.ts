@@ -8,10 +8,11 @@ interface FindAllPostsServiceRequest {
 interface FindAllPostsServiceResponse {}
 
 export class FindAllPostsService {
-  // constructor(private juniorRepository: JuniorRepository) {}
+  constructor(private juniorRepository: JuniorRepository) {}
 
   async execute({ init, limit }: FindAllPostsServiceRequest): Promise<any> {
-    // const response = await this.juniorRepository.findAll(init, limit);
-    // return response;
+    const response = await this.juniorRepository.findAll(init, limit);
+
+    return response;
   }
 }

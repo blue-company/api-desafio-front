@@ -1,3 +1,5 @@
+import { TypeOrmPlenoRepository } from "@/repositories/typeorm/typeorm-pleno-repository";
+import { FindAllFormsService } from "@/services/find-all-forms-service";
 import { Request, Response } from "express";
 import { z } from "zod";
 
@@ -31,22 +33,21 @@ export class FindAllFormsController {
       cpf,
     } = findAllFormsQuerySchema.parse(req.query);
 
-    // const findAllFormsService = new FindAllFormsService();
+    const typeOrmPlenoRepository = new TypeOrmPlenoRepository();
+    const findAllFormsService = new FindAllFormsService(typeOrmPlenoRepository);
 
-    // const response = await findAllFormsService.execute({
-    //   init,
-    //   limit,
-    //   name,
-    //   email,
-    //   cell,
-    //   cep,
-    //   address,
-    //   city,
-    //   state,
-    //   neighborhood,
-    //   cpf,
-    // });
+    const response = await findAllFormsService.execute(init, limit, {
+      name,
+      email,
+      cell,
+      cep,
+      address,
+      city,
+      state,
+      neighborhood,
+      cpf,
+    });
 
-    // return res.status(200).send(response);
+    return res.status(200).send(response);
   }
 }

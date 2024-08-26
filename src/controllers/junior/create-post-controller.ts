@@ -1,3 +1,4 @@
+import { TypeOrmJuniorRepository } from "@/repositories/typeorm/typeorm-junior-repository";
 import { CreatePostService } from "@/services/create-post-service";
 import { Request, Response } from "express";
 import { z } from "zod";
@@ -13,7 +14,8 @@ export class CreatePostController {
     const { author, title, description } = createBodySchema.parse(req.body);
 
     try {
-      const createPostService = new CreatePostService();
+      const typeOrmJuniorRepository = new TypeOrmJuniorRepository();
+      const createPostService = new CreatePostService(typeOrmJuniorRepository);
       await createPostService.execute({ author, title, description });
     } catch (err) {
       // if (err instanceof UserAlreadyExistsError) {

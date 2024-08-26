@@ -1,9 +1,23 @@
 import { app } from "./app";
+import "reflect-metadata";
+import { appDataSource } from "./db/typeorm/data-source";
+import { env } from "./env";
 
 app.listen(
   {
-    host: "0.0.0.0",
-    port: 3000,
+    // host: "localhost",
+    port: env.PORT,
   },
-  () => console.log(`🚀 HTTP Server is running! url: http://localhost:3000`)
+  async () => {
+    await appDataSource
+      .initialize()
+      .then(async () => {
+        console.log("Database connectado com sucesso!");
+
+        return appDataSource.isInitialized;
+      })
+      .catch((error) => console.log(error));
+
+    console.log(`🚀 HTTP Server is running! url: http://localhost:${env.PORT}`);
+  }
 );

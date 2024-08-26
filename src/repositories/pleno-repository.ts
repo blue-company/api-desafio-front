@@ -1,4 +1,10 @@
+import { Form } from "@/db/typeorm/entity/Form";
+
 export interface PlenoRepository {
-  createForm(data: any): Promise<any>;
-  findAllForm(init: number, limit: number): Promise<any>;
+  createForm(data: Form): Promise<Form>;
+  findAllForm(
+    init: number,
+    limit: number,
+    data: Partial<Form>
+  ): Promise<Form[] | null>;
 }

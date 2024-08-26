@@ -9,13 +9,10 @@ interface UpdatePostServiceRequest {
 interface UpdatePostServiceResponse {}
 
 export class UpdatePostService {
-  // constructor(private juniorRepository: JuniorRepository) {}
+  constructor(private juniorRepository: JuniorRepository) {}
 
-  async execute(
-    id: number,
-    { author, title, description }: UpdatePostServiceRequest
-  ): Promise<any> {
-    // const response = await this.juniorRepository.update(data);
-    // return response;
+  async execute(id: number, data: UpdatePostServiceRequest): Promise<any> {
+    const response = await this.juniorRepository.update(id, data);
+    return response;
   }
 }

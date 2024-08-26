@@ -1,14 +1,28 @@
 import { PlenoRepository } from "@/repositories/pleno-repository";
 
-interface FindAllFromsServiceRequest {}
+interface FindAllFromsServiceRequest {
+  name?: string;
+  email?: string;
+  cell?: string;
+  cep?: string;
+  address?: string;
+  city?: string;
+  state?: string;
+  neighborhood?: string;
+  cpf?: string;
+}
 
 interface FindAllFromsServiceResponse {}
 
-export class FindAllFromsService {
-  // constructor(private plenoRepository: PlenoRepository) {}
+export class FindAllFormsService {
+  constructor(private plenoRepository: PlenoRepository) {}
 
-  async execute({}: FindAllFromsServiceRequest): Promise<any> {
-    // const response = await this.plenoRepository.findAllForm(data);
-    // return response;
+  async execute(
+    init: number,
+    limit: number,
+    data: FindAllFromsServiceRequest
+  ): Promise<any> {
+    const response = await this.plenoRepository.findAllForm(init, limit, data);
+    return response;
   }
 }

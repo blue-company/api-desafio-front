@@ -1,3 +1,4 @@
+import { TypeOrmJuniorRepository } from "@/repositories/typeorm/typeorm-junior-repository";
 import { UpdatePostService } from "@/services/update-post-service";
 import { Request, Response } from "express";
 import { z } from "zod";
@@ -17,7 +18,8 @@ export class UpdatePostController {
     const { author, title, description } = updateBodySchema.parse(req.body);
     const { id } = updateParamsSchema.parse(req.params);
 
-    const updateService = new UpdatePostService();
+    const typeOrmJuniorRepository = new TypeOrmJuniorRepository();
+    const updateService = new UpdatePostService(typeOrmJuniorRepository);
     await updateService.execute(id, { author, title, description });
 
     return res.status(200).json({ message: "Atualizado!" });

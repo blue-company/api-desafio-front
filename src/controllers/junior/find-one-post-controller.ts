@@ -1,3 +1,4 @@
+import { TypeOrmJuniorRepository } from "@/repositories/typeorm/typeorm-junior-repository";
 import { FindOnePostService } from "@/services/find-one-post-service";
 import { Request, Response } from "express";
 import { z } from "zod";
@@ -10,7 +11,8 @@ export class FindOnePostController {
 
     const { id } = findOneParamsSchema.parse(req.params);
 
-    const findOnePostService = new FindOnePostService();
+    const typeOrmJuniorRepository = new TypeOrmJuniorRepository();
+    const findOnePostService = new FindOnePostService(typeOrmJuniorRepository);
 
     const response = await findOnePostService.execute({ id });
 

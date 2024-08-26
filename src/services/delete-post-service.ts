@@ -7,10 +7,10 @@ interface DeletePostServiceRequest {
 interface DeletePostServiceResponse {}
 
 export class DeletePostService {
-  // constructor(private juniorRepository: JuniorRepository) {}
+  constructor(private juniorRepository: JuniorRepository) {}
 
   async execute({ id }: DeletePostServiceRequest): Promise<any> {
-    // const response = await this.juniorRepository.findOne(init, limit);
-    // return response;
+    const response = await this.juniorRepository.delete(id);
+    return response;
   }
 }
