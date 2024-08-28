@@ -4,7 +4,7 @@ import { validateCardNumber } from "@/utils/validate-card-number";
 import { CpfInvalidError } from "./errors/cpf-invalid-error";
 import { CardNumberInvalidError } from "./errors/card-number-invalid-error";
 
-interface CreateFormServiceRequest {
+export interface CreateFormServiceRequest {
   name: string;
   lastName: string;
   email: string;

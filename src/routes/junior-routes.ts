@@ -14,7 +14,7 @@ const update = new UpdatePostController();
 const del = new DeletePostController();
 
 juniorRoutes.post("/", create.handle);
-juniorRoutes.get("/", findAll.handle);
+juniorRoutes.get("/:profileGithub", findAll.handle);
 juniorRoutes.get("/:id", findOne.handle);
 juniorRoutes.patch("/:id", update.handle);
 juniorRoutes.delete("/:id", del.handle);

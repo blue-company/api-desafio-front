@@ -1,0 +1,42 @@
+name: MAIN-DEPLOY
+
+on:
+  push:
+    branches: [main]
+jobs:
+  homolog-deploy:
+    runs-on: [self-hosted, Linux, x64, BACKEND, DESAFIO, FRONT]
+    # environment:
+    #   name: homolog
+    #   url: "wss://hmlproj-n.bluenacional.com/websocket-entrevista/"
+    strategy:
+      matrix:
+        node-version: [lts/*]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: install pnpm
+        run: npm i -g pnpm
+
+      - name: pnpm install
+        run: pnpm install
+
+      - name: "Create env file"
+        run: |
+          echo '${{ secrets.HOMOLOG_ENV_FILE }}' > .env
+
+      - name: build
+        run: pnpm build
+
+      - name: pm2 install
+        run: npm install pm2@latest -g
+
+      - name: start or reload server
+        run: pm2 startOrGracefulReload ecosystem.config.js
+
+      - name: pm2 save
+        run: pm2 save

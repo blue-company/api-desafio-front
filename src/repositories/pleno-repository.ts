@@ -1,10 +1,13 @@
 import { Form } from "@/db/typeorm/entity/Form";
+import { Product } from "@/db/typeorm/entity/Product";
+import { CreateFormServiceRequest } from "@/services/create-form-service";
 
 export interface PlenoRepository {
-  createForm(data: Form): Promise<Form>;
-  findAllForm(
+  createForm(data: CreateFormServiceRequest): Promise<CreateFormServiceRequest>;
+  createProducts(data: Product): Promise<Product>;
+  findAllProducts(
     init: number,
     limit: number,
-    data: Partial<Form>
-  ): Promise<Form[] | null>;
+    data: Partial<Product>
+  ): Promise<Product[] | null>;
 }

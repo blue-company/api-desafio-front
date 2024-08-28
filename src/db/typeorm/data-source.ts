@@ -2,6 +2,7 @@ import { env } from "@/env";
 import { DataSource } from "typeorm";
 import { Post } from "./entity/Post";
 import { Form } from "./entity/Form";
+import { Product } from "./entity/Product";
 
 export const appDataSource = new DataSource({
   type: "mysql",
@@ -12,7 +13,7 @@ export const appDataSource = new DataSource({
   database: env.MYSQL_DATABASE,
   synchronize: true,
   logging: false,
-  entities: [Post, Form],
+  entities: [Post, Product],
   subscribers: [],
   migrations: [],
 });

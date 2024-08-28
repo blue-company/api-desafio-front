@@ -1,21 +1,21 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class Post {
+export class Product {
   @PrimaryGeneratedColumn()
   id?: number;
 
   @Column({ type: "varchar" })
-  author!: string;
-
-  @Column({ type: "varchar" })
-  title!: string;
+  name!: string;
 
   @Column({ type: "varchar" })
   description!: string;
 
+  @Column({ type: "int" })
+  price!: number;
+
   @Column({ type: "varchar" })
-  profileGithub!: string;
+  photos!: string;
 
   @Column({ type: "date" })
   create_at!: Date;

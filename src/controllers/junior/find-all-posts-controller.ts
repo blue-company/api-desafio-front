@@ -10,7 +10,14 @@ export class FindAllPostsController {
       limit: z.coerce.number(),
     });
 
+    const findAllParamsSchema = z.object({
+      init: z.coerce.number().min(1).default(1),
+      limit: z.coerce.number(),
+    });
+
     const { init, limit } = findAllQuerySchema.parse(req.query);
+
+    console.log(req.params);
 
     const typeOrmJuniorRepository = new TypeOrmJuniorRepository();
     const findAllPostsService = new FindAllPostsService(
