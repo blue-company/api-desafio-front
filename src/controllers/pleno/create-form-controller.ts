@@ -2,6 +2,7 @@ import { TypeOrmPlenoRepository } from "@/repositories/typeorm/typeorm-pleno-rep
 import { CreateFormService } from "@/services/create-form-service";
 import { CardNumberInvalidError } from "@/services/errors/card-number-invalid-error";
 import { CpfInvalidError } from "@/services/errors/cpf-invalid-error";
+import { makeCreateFormService } from "@/services/factories/make-create-form-service";
 import { Request, Response } from "express";
 import { z, ZodError } from "zod";
 
@@ -43,8 +44,8 @@ export class CreateFormController {
         holderName,
         cpf,
       } = createFormBodySchema.parse(req.body);
-      const typeOrmPlenoRepository = new TypeOrmPlenoRepository();
-      const createFormService = new CreateFormService(typeOrmPlenoRepository);
+
+      const createFormService = makeCreateFormService();
 
       await createFormService.execute({
         name,

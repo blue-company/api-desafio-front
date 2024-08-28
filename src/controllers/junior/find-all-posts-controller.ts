@@ -1,4 +1,5 @@
 import { TypeOrmJuniorRepository } from "@/repositories/typeorm/typeorm-junior-repository";
+import { makeFindAllPostsService } from "@/services/factories/make-find-all-posts-service";
 import { FindAllPostsService } from "@/services/find-all-posts-service";
 import { Request, Response } from "express";
 import { z } from "zod";
@@ -11,19 +12,19 @@ export class FindAllPostsController {
     });
 
     const findAllParamsSchema = z.object({
-      init: z.coerce.number().min(1).default(1),
-      limit: z.coerce.number(),
+      profileGithub: z.string(),
     });
 
     const { init, limit } = findAllQuerySchema.parse(req.query);
+    const { profileGithub } = findAllParamsSchema.parse(req.params);
 
-    console.log(req.params);
+    const findAllPostsService = makeFindAllPostsService();
 
-    const typeOrmJuniorRepository = new TypeOrmJuniorRepository();
-    const findAllPostsService = new FindAllPostsService(
-      typeOrmJuniorRepository
-    );
-    const response = await findAllPostsService.execute({ init, limit });
+    const response = await findAllPostsService.execute({
+      profileGithub,
+      init,
+      limit,
+    });
 
     return res.status(200).send(response);
   }

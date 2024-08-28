@@ -8,7 +8,7 @@ export class Product {
   @Column({ type: "varchar" })
   name!: string;
 
-  @Column({ type: "varchar" })
+  @Column({ type: "text" })
   description!: string;
 
   @Column({ type: "int" })

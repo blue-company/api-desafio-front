@@ -4,6 +4,7 @@ interface CreatePostServiceRequest {
   author: string;
   title: string;
   description: string;
+  profileGithub: string;
 }
 
 interface CreatePostServiceResponse {}
@@ -15,12 +16,14 @@ export class CreatePostService {
     author,
     title,
     description,
+    profileGithub,
   }: CreatePostServiceRequest): Promise<any> {
     const response = await this.juniorRepository.create({
       author,
       title,
       description,
       create_at: new Date(),
+      profileGithub,
     });
 
     return response;

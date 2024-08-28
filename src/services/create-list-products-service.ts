@@ -4,7 +4,7 @@ interface CreateProductServiceRequest {
   name: string;
   description: string;
   price: number;
-  photos: string;
+  urlPhoto: string;
 }
 
 export class CreateListProductsService {
@@ -13,6 +13,7 @@ export class CreateListProductsService {
   async execute(data: CreateProductServiceRequest): Promise<any> {
     const produt = this.plenoRepository.createProducts({
       ...data,
+      photos: data.urlPhoto,
       create_at: new Date(),
     });
 

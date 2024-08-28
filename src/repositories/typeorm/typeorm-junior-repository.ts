@@ -11,7 +11,11 @@ export class TypeOrmJuniorRepository implements JuniorRepository {
     return this.typeOrm.save(response);
   }
 
-  async update(id: number, data: Partial<Post>): Promise<Post | null> {
+  async update(
+    profileGithub: string,
+    id: number,
+    data: Partial<Post>
+  ): Promise<Post | null> {
     const post = await this.typeOrm.findOneBy({ id });
 
     if (!post) {
@@ -22,15 +26,22 @@ export class TypeOrmJuniorRepository implements JuniorRepository {
     return this.typeOrm.save(post);
   }
 
-  async findAll(init: number, limit: number): Promise<Post[] | null> {
+  async findAll(
+    profileGithub: string,
+    init: number,
+    limit: number
+  ): Promise<Post[] | null> {
     return this.typeOrm.find({
       skip: init - 1,
       take: limit,
+      where: {
+        profileGithub,
+      },
     });
   }
 
-  async findOne(id: number): Promise<Post | null> {
-    return this.typeOrm.findOneBy({ id });
+  async findOne(profileGithub: string, id: number): Promise<Post | null> {
+    return this.typeOrm.findOneBy({ id, profileGithub });
   }
 
   async delete(id: number): Promise<any> {

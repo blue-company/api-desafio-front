@@ -11,8 +11,16 @@ interface UpdatePostServiceResponse {}
 export class UpdatePostService {
   constructor(private juniorRepository: JuniorRepository) {}
 
-  async execute(id: number, data: UpdatePostServiceRequest): Promise<any> {
-    const response = await this.juniorRepository.update(id, data);
+  async execute(
+    profileGithub: string,
+    id: number,
+    data: UpdatePostServiceRequest
+  ): Promise<any> {
+    const response = await this.juniorRepository.update(
+      profileGithub,
+      id,
+      data
+    );
     return response;
   }
 }

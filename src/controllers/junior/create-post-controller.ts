@@ -1,5 +1,6 @@
 import { TypeOrmJuniorRepository } from "@/repositories/typeorm/typeorm-junior-repository";
 import { CreatePostService } from "@/services/create-post-service";
+import { GenerateUrlService } from "@/services/generate-url-service";
 import { Request, Response } from "express";
 import { z } from "zod";
 
@@ -11,17 +12,23 @@ export class CreatePostController {
       description: z.string(),
     });
 
+    const createParamsSchema = z.object({
+      profileGithub: z.string(),
+    });
+
     const { author, title, description } = createBodySchema.parse(req.body);
+    const { profileGithub } = createParamsSchema.parse(req.params);
 
     try {
       const typeOrmJuniorRepository = new TypeOrmJuniorRepository();
       const createPostService = new CreatePostService(typeOrmJuniorRepository);
-      await createPostService.execute({ author, title, description });
+      await createPostService.execute({
+        author,
+        title,
+        description,
+        profileGithub,
+      });
     } catch (err) {
-      // if (err instanceof UserAlreadyExistsError) {
-      //   return reply.status(409).send({ message: err.message });
-      // }
-
       throw err;
     }
 

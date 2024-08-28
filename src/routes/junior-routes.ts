@@ -13,10 +13,10 @@ const findOne = new FindOnePostController();
 const update = new UpdatePostController();
 const del = new DeletePostController();
 
-juniorRoutes.post("/", create.handle);
+juniorRoutes.post("/:profileGithub", create.handle);
 juniorRoutes.get("/:profileGithub", findAll.handle);
-juniorRoutes.get("/:id", findOne.handle);
-juniorRoutes.patch("/:id", update.handle);
-juniorRoutes.delete("/:id", del.handle);
+juniorRoutes.get("/:profileGithub/:id", findOne.handle);
+juniorRoutes.patch("/:profileGithub/:id", update.handle);
+juniorRoutes.delete("/:profileGithub/:id", del.handle);
 
 export { juniorRoutes };

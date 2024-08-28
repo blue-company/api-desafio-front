@@ -3,6 +3,7 @@ import { PlenoRepository } from "../pleno-repository";
 import { appDataSource } from "@/db/typeorm/data-source";
 import { Product } from "@/db/typeorm/entity/Product";
 import { CreateFormServiceRequest } from "@/services/create-form-service";
+import { Like } from "typeorm";
 
 export class TypeOrmPlenoRepository implements PlenoRepository {
   public items: CreateFormServiceRequest[] = [];
@@ -29,6 +30,9 @@ export class TypeOrmPlenoRepository implements PlenoRepository {
     return this.typeOrm.find({
       skip: init - 1,
       take: limit,
+      where: {
+        name: Like(`%${data.name}%`),
+      },
     });
   }
 }
